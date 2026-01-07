@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top Up Game Murah</title>
+
+<style>
+*{box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{
+  margin:0;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:#fff;
+}
+
+/* HEADER */
+.header{text-align:center;padding:20px 10px}
+.header h1{margin:0;font-size:22px}
+.header p{margin-top:6px;font-size:13px;color:#cbd5f5}
+
+/* LAYOUT */
+.wrapper{
+  display:flex;
+  gap:20px;
+  max-width:1000px;
+  margin:auto;
+  padding:15px;
+}
+.box{
+  background:#1e293b;
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+
+/* GAME */
+.games{width:40%}
+.game-list{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.game{
+  background:#334155;
+  border-radius:14px;
+  padding:12px;
+  text-align:center;
+  cursor:pointer;
+}
+.game img{width:60px;height:60px;object-fit:contain}
+.game span{display:block;margin-top:6px;font-size:13px}
+.game.active{
+  background:#22d3ee;
+  color:#000;
+  font-weight:bold;
+}
+
+/* FORM */
+.form{width:60%}
+label{display:block;margin-top:12px;font-size:13px}
+input,select{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  margin-top:6px;
+}
+
+/* PAYMENT */
+.payment-list{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+.pay{
+  flex:1;
+  background:#334155;
+  border-radius:14px;
+  padding:10px;
+  text-align:center;
+  cursor:pointer;
+}
+.pay img{
+  width:45px;height:28px;
+  object-fit:contain;
+  margin-bottom:4px;
+}
+.pay span{font-size:12px}
+.pay.active{
+  background:#22d3ee;
+  color:#000;
+  font-weight:bold;
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  margin-top:18px;
+  padding:14px;
+  border:none;
+  border-radius:16px;
+  background:#22d3ee;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.footer{text-align:center;font-size:11px;margin-top:12px;color:#94a3b8}
+
+/* MOBILE */
+@media(max-width:768px){
+  .wrapper{flex-direction:column}
+  .games,.form{width:100%}
+  .game-list{display:flex;gap:12px;overflow-x:auto}
+  .game{min-width:120px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>🎮 Top Up Game</h1>
+  <p>Cepat • Aman • Terpercaya</p>
+</div>
+
+<div class="wrapper">
+
+<!-- PILIH GAME -->
+<div class="box games">
+<h3>Pilih Game</h3>
+<div class="game-list">
+
+<div class="game active" onclick="pilihGame(this,'Mobile Legends')">
+<img src="Ml.png">
+<span>Mobile Legends</span>
+</div>
+
+<div class="game" onclick="pilihGame(this,'Free Fire')">
+<img src="Epep.png">
+<span>Free Fire</span>
+</div>
+
+<div class="game" onclick="pilihGame(this,'PUBG Mobile')">
+<img src="pu.jpg">
+<span>PUBG Mobile</span>
+</div>
+
+<div class="game" onclick="pilihGame(this,'Genshin Impact')">
+<img src="Gs.jpg">
+<span>Genshin Impact</span>
+</div>
+
+<div class="game" onclick="pilihGame(this,'Valorant')">
+<img src="Va.png">
+<span>Valorant</span>
+</div>
+
+<div class="game" onclick="pilihGame(this,'COD Mobile')">
+<img src="cod.jpg">
+<span>COD Mobile</span>
+</div>
+
+</div>
+</div>
+
+<!-- FORM -->
+<div class="box form">
+<h3>Top Up Game</h3>
+
+<label>Game</label>
+<input id="game" value="Mobile Legends" readonly>
+
+<label>User ID</label>
+<input id="userid" placeholder="Masukkan User ID">
+
+<label>Nominal</label>
+<select id="nominal">
+<option>86 Diamonds - Rp20.000</option>
+<option>172 Diamonds - Rp40.000</option>
+<option>257 Diamonds - Rp60.000</option>
+</select>
+
+<label>Metode Pembayaran</label>
+<div class="payment-list">
+  <div class="pay" onclick="pilihBayar(this)">
+    <img src="dana.jpg"><span>DANA</span>
+  </div>
+  <div class="pay" onclick="pilihBayar(this)">
+    <img src="ovo.jpg"><span>OVO</span>
+  </div>
+  <div class="pay" onclick="pilihBayar(this)">
+    <img src="gopay.jpg"><span>GoPay</span>
+  </div>
+  <div class="pay active" onclick="pilihBayar(this)">
+    <img src="qris.png"><span>QRIS</span>
+  </div>
+</div>
+
+<button onclick="checkout()">Checkout via WhatsApp</button>
+<div class="footer">© 2026 Top Up Game</div>
+</div>
+
+</div>
+
+<script>
+let metode="QRIS";
+
+function pilihGame(el,nama){
+  document.querySelectorAll('.game').forEach(g=>g.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById("game").value=nama;
+}
+
+function pilihBayar(el){
+  document.querySelectorAll('.pay').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  metode=el.innerText.trim();
+}
+
+function checkout(){
+  const id=document.getElementById("userid").value;
+  if(id==""){
+    alert("User ID wajib diisi!");
+    return;
+  }
+  const pesan=`ORDER TOP UP
+Game: ${game.value}
+User ID: ${id}
+Nominal: ${nominal.value}
+Pembayaran: ${metode}`;
+
+  window.open("https://wa.me/6285706584572?text="+encodeURIComponent(pesan));
+}
+</script>
+
+</body>
+</html>
